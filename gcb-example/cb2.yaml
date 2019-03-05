@@ -1,0 +1,8 @@
+steps:
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['pull', 'bash']
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['images', 'ls']
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['volume', 'ls']
+

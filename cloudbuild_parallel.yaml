@@ -1,0 +1,15 @@
+steps:
+# Build the images.
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['build', '-t', 'gcr.io/$PROJECT_ID/gcb-example', './gcb-example']
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['build', '-t', 'gcr.io/$PROJECT_ID/quickstart-image', './quickstart']
+  id: 'lastBuild'
+# Push the images in parallel.
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['push', 'gcr.io/$PROJECT_ID/quickstart-image']
+  waitFor: ['lastBuild']
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['push', 'gcr.io/$PROJECT_ID/gcb-example']
+  waitFor: ['lastBuild']
+
